@@ -1,4 +1,30 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 const Hero = () => {
+  const getUsers = async () => {
+    try {
+      const response = await fetch("/api/get", {
+        headers: {
+          Accept: "application/json",
+          method: "GET",
+        },
+      });
+
+      if (response) {
+        const data = response.json();
+        console.log(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
   return (
     <section className="min-h-screen pt-28 min-[600px]:pt-36 lg:pt-28 pb-10">
       <div className="w-[90%] md:w-[80%] lg:w-[95%] xl:w-[90%] mx-auto">
