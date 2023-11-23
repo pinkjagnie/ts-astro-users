@@ -30,12 +30,12 @@ const Hero = () => {
         <h1 className="pb-4 md:pt-4 lg:pt-0 uppercase font-bold text-xl lg:text-2xl text-center">
           Welcome to outer space where you can find other astronauts!
         </h1>
+        {astroUsers.length == 0 && (
+          <p className="pt-4 font-medium text-lg text-center">
+            There are no users. Click the icon in the menu to add a new user
+          </p>
+        )}
         <div className="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:justify-items-center md:py-4 max-w-[1280px]">
-          {astroUsers.length == 0 && (
-            <p className="pt-4 font-medium text-lg text-center">
-              There are no users. Click the icon in the menu to add a new user
-            </p>
-          )}
           {astroUsers.length > 0 &&
             astroUsers.map((user: TUser): ReactNode => {
               return (
