@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 import { TUser } from "@/types/types";
 
@@ -19,25 +19,9 @@ const Hero = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setAstroUsers(data);
+        console.log(data.users);
+        setAstroUsers(data.users);
       });
-
-    // try {
-    //   const response = fetch("/api/get", {
-    //     headers: {
-    //       Accept: "application/json",
-    //       method: "GET",
-    //     },
-    //   });
-
-    //   if (response.ok) {
-    //     const data = await response.json();
-    //     console.log(data);
-    //     setAstroUsers(data);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
   }, []);
 
   return (
@@ -47,17 +31,19 @@ const Hero = () => {
           Welcome to outer space where you can find other astronauts!
         </h1>
         <div className="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:justify-items-center md:py-4 max-w-[1280px]">
+          {astroUsers.length == 0 && (
+            <p className="pt-4 font-medium text-lg text-center">
+              There are no users. Click the icon in the menu to add a new user
+            </p>
+          )}
           {astroUsers.length > 0 &&
-            astroUsers.map((user) => {
+            astroUsers.map((user: TUser): ReactNode => {
               return (
-                <>
-                  <h1>{user.firstName}</h1>
-                  <SingleUserCard
-                    key={user._id.toString()}
-                    userId={user._id}
-                    user={user}
-                  />
-                </>
+                <SingleUserCard
+                  key={user._id.toString()}
+                  userId={user._id}
+                  user={user}
+                />
               );
             })}
         </div>

@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { SingleUserCardProps, TUser } from "@/types/types";
+import { SingleUserCardProps } from "@/types/types";
 
 import { FaUserCog, FaUserTimes } from "react-icons/fa";
 
