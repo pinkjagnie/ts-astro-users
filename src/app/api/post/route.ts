@@ -14,15 +14,12 @@ export async function POST(req: NextRequest, res: NextResponse<ResponseData>) {
     return;
   }
 
-  console.log(req.body);
-  console.log(Request);
-  console.log(Request.body);
+  const data = await req.json();
 
-  const data = req.body;
-
-  console.log("DAAAAAAAAAAAAAAAAAAAAAAAAAATA ");
+  console.log(
+    "---------- DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA --------------------"
+  );
   console.log(data);
-  console.log(req.json());
 
   const { firstName, age, tagFirst, tagSecond, tagThird, hash } = data;
 
@@ -40,14 +37,7 @@ export async function POST(req: NextRequest, res: NextResponse<ResponseData>) {
     );
   }
 
-  const newUser = new User({
-    firstName: firstName,
-    age: age,
-    tagFirst: tagFirst,
-    tagSecond: tagSecond,
-    tagThird: tagThird,
-    hash: hash,
-  });
+  const newUser = new User(data);
 
   const validateError = newUser.validateSync();
   console.log(validateError);
