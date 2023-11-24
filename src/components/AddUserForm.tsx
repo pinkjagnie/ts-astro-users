@@ -1,12 +1,23 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { makeUserId } from "@/utils/makeUserId";
 
+import Popup from "./Popup";
+
 const AddUserForm = () => {
+  const [showPopup, setShowPopup] = useState(false);
+  const [msgCreated, setMsgCreated] = useState("");
+  const [sloganCreated, setSloganCreated] = useState("");
+
+  const router = useRouter();
+
   const validation = Yup.object().shape({
     chooseCb: Yup.bool().oneOf([true], "Checkbox selection is required"),
   });
@@ -73,11 +84,31 @@ const AddUserForm = () => {
     console.log(response);
     console.log(response.message); // this to setState for msg
 
-    // reset();
+    setShowPopup(true);
+    setMsgCreated(response.message);
+
+    if (response.message === "User created!") {
+      setSloganCreated("In a few seconds I will fly away and you will go home");
+      setTimeout(() => {
+        setShowPopup(false), reset();
+        router.push("/");
+      }, 3000);
+    }
   }
+
+  const closeMsgPopup = () => {
+    setShowPopup(false);
+  };
 
   return (
     <div>
+      {showPopup && (
+        <Popup
+          msgCreated={msgCreated}
+          closeMsgPopup={closeMsgPopup}
+          sloganCreated={sloganCreated}
+        />
+      )}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-[90%] md:w-[60%] pt-2 pb-6 mb-2 mx-auto"

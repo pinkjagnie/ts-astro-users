@@ -14,3 +14,9 @@ export type SingleUserCardProps = {
   userId: ObjectId;
   user: TUser;
 };
+
+export type PopupProps = {
+  msgCreated: string;
+  sloganCreated: string;
+  closeMsgPopup: () => void;
+};
