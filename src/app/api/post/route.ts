@@ -3,10 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/utils/db";
 import User from "@/models/User.model";
 
-type ResponseData = {
-  message: string;
-  status: number;
-};
+import { ResponseData } from "@/types/types";
 
 export async function POST(req: NextRequest, res: NextResponse<ResponseData>) {
   if (req.method !== "POST") {

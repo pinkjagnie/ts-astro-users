@@ -20,3 +20,8 @@ export type PopupProps = {
   sloganCreated: string;
   closeMsgPopup: () => void;
 };
+
+export type ResponseData = {
+  message: string;
+  status: number;
+};
