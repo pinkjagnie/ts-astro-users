@@ -54,24 +54,26 @@ const AddUserForm = () => {
 
     console.log(newHash);
 
-    // const res = await fetch("/api/users/add", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     firstName: enteredFirstName,
-    //     age: enteredAge,
-    //     tagFirst: enteredTagFirst,
-    //     tagSecond: enteredTagSecond,
-    //     tagThird: enteredTagThird,
-    //     hash: newHash,
-    //   }),
-    // });
+    const res = await fetch("/api/post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName: enteredFirstName,
+        age: enteredAge,
+        tagFirst: enteredTagFirst,
+        tagSecond: enteredTagSecond,
+        tagThird: enteredTagThird,
+        hash: newHash,
+      }),
+    });
 
-    // const response = await res.json();
-    // console.log(response);
-    // console.log(response.message);
+    const response = await res.json();
+    console.log(response);
+    console.log(response.message);
+
+    // reset();
   }
 
   return (
