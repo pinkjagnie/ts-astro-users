@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-// import { NextApiResponse, NextApiRequest } from "next";
 
 import dbConnect from "@/utils/db";
 import User from "@/models/User.model";
@@ -16,10 +15,10 @@ export async function POST(req: NextRequest, res: NextResponse<ResponseData>) {
 
   const data = await req.json();
 
-  console.log(
-    "---------- DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA --------------------"
-  );
-  console.log(data);
+  // console.log(
+  //   "---------- DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA --------------------"
+  // );
+  // console.log(data);
 
   const { firstName, age, tagFirst, tagSecond, tagThird, hash } = data;
 

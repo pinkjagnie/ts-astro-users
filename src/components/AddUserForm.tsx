@@ -71,7 +71,7 @@ const AddUserForm = () => {
 
     const response = await res.json();
     console.log(response);
-    console.log(response.message);
+    console.log(response.message); // this to setState for msg
 
     // reset();
   }
