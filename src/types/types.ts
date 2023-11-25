@@ -25,3 +25,7 @@ export type ResponseData = {
   message: string;
   status: number;
 };
+
+export interface Params {
+  params: { hash: string };
+}
