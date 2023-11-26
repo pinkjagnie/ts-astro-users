@@ -1,10 +1,23 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { EditUserFormProps } from "@/types/types";
 
+import Popup from "./Popup";
+
 const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
+  const [showPopup, setShowPopup] = useState(false);
+  const [msgCreated, setMsgCreated] = useState("");
+  const [sloganCreated, setSloganCreated] = useState("");
+
+  const router = useRouter();
+
   const validation = Yup.object().shape({
     chooseCb: Yup.bool().oneOf([true], "Checkbox selection is required"),
   });
@@ -47,10 +60,51 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
     console.log("2nd tag: " + enteredTagSecond);
     console.log("3rd tag: " + enteredTagThird);
     console.log(isChecked);
+
+    const res = await fetch(`/api/edit/${user.hash}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName: enteredFirstName,
+        age: enteredAge,
+        tagFirst: enteredTagFirst,
+        tagSecond: enteredTagSecond,
+        tagThird: enteredTagThird,
+        hash: user.hash,
+      }),
+    });
+
+    const response = await res.json();
+    console.log(response);
+    console.log(response.message);
+
+    setShowPopup(true);
+    setMsgCreated(response.message);
+
+    if (response.message === "User data updated!") {
+      setSloganCreated("In a few seconds I will fly away and you will go home");
+      setTimeout(() => {
+        setShowPopup(false);
+        router.push("/");
+      }, 3000);
+    }
   }
+
+  const closeMsgPopup = () => {
+    setShowPopup(false);
+  };
 
   return (
     <div>
+      {showPopup && (
+        <Popup
+          msgCreated={msgCreated}
+          closeMsgPopup={closeMsgPopup}
+          sloganCreated={sloganCreated}
+        />
+      )}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-[90%] md:w-[60%] pt-2 pb-6 mb-2 mx-auto"
