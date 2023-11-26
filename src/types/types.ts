@@ -15,6 +15,10 @@ export type SingleUserCardProps = {
   user: TUser;
 };
 
+export type EditUserFormProps = {
+  user: TUser;
+};
+
 export type PopupProps = {
   msgCreated: string;
   sloganCreated: string;

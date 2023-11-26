@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 
-import { Params } from "@/types/types";
+import { Params, TUser } from "@/types/types";
+
+import EditUserForm from "@/components/EditUserForm";
 
 export default function EditUser({ params }: Params) {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<TUser>();
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/get/${params.hash}`, {
@@ -26,7 +28,7 @@ export default function EditUser({ params }: Params) {
       <h1 className="pb-4 md:pt-4 lg:pt-0 uppercase font-bold text-xl lg:text-2xl text-center">
         Wanna change data of this user? Here you have
       </h1>
-      {/* <EditUserDataForm user={props.user}/> */}
+      {user && <EditUserForm user={user} />}
     </section>
   );
 }
