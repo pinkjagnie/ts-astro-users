@@ -33,3 +33,12 @@ export type ResponseData = {
 export interface Params {
   params: { hash: string };
 }
+
+export type EnteredData = {
+  firstName: string;
+  age: number;
+  tagFirst: string;
+  tagSecond: string;
+  tagThird: string;
+  chooseCb: boolean;
+};

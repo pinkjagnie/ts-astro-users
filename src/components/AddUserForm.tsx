@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { EnteredData } from "@/types/types";
 import { makeUserId } from "@/utils/makeUserId";
 
 import Popup from "./Popup";
@@ -39,7 +40,7 @@ const AddUserForm = () => {
     },
   });
 
-  async function onSubmit(data) {
+  async function onSubmit(data: EnteredData) {
     const enteredFirstName = "Astro " + data.firstName;
     const enteredAge = data.age;
     const enteredTagFirst = data.tagFirst;
