@@ -8,6 +8,7 @@ import SingleUserCard from "./SingleUserCard";
 
 const Hero = () => {
   const [astroUsers, setAstroUsers] = useState<TUser[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("/api/get", {
@@ -20,6 +21,7 @@ const Hero = () => {
       .then((data) => {
         console.log(data);
         console.log(data.users);
+        setLoading(false);
         setAstroUsers(data.users);
       });
   }, []);
@@ -30,7 +32,12 @@ const Hero = () => {
         <h1 className="pb-4 md:pt-4 lg:pt-0 uppercase font-bold text-xl lg:text-2xl text-center">
           Welcome to outer space where you can find other astronauts!
         </h1>
-        {astroUsers.length == 0 && (
+        {loading && astroUsers.length == 0 && (
+          <p className="pt-4 font-medium text-lg text-center">
+            Loading. Please wait...
+          </p>
+        )}
+        {!loading && astroUsers.length == 0 && (
           <p className="pt-4 font-medium text-lg text-center">
             There are no users. Click the icon in the menu to add a new user
           </p>
