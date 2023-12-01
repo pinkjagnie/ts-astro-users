@@ -36,7 +36,7 @@ export interface Params {
 
 export type EnteredData = {
   firstName: string;
-  age: number;
+  age: number | string;
   tagFirst: string;
   tagSecond: string;
   tagThird: string;

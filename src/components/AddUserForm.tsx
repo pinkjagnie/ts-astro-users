@@ -29,7 +29,7 @@ const AddUserForm = () => {
     handleSubmit,
     reset,
     formState: { errors, isDirty, isValid },
-  } = useForm({
+  } = useForm<EnteredData>({
     defaultValues: {
       firstName: "",
       age: "",
@@ -55,15 +55,7 @@ const AddUserForm = () => {
       return;
     }
 
-    console.log("name: " + enteredFirstName);
-    console.log("age: " + enteredAge);
-    console.log("1st tag: " + enteredTagFirst);
-    console.log("2nd tag: " + enteredTagSecond);
-    console.log("3rd tag: " + enteredTagThird);
-    console.log(isChecked);
-
     const newHash = makeUserId(enteredFirstName);
-
     console.log(newHash);
 
     const res = await fetch("/api/post", {

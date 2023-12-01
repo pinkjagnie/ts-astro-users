@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { EditUserFormProps } from "@/types/types";
+import { EditUserFormProps, EnteredData } from "@/types/types";
 
 import Popup from "./Popup";
 
@@ -28,7 +28,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
     handleSubmit,
     reset,
     formState: { errors, isDirty, isValid },
-  } = useForm({
+  } = useForm<EnteredData>({
     defaultValues: {
       firstName: user.firstName,
       age: user.age,
@@ -39,7 +39,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
     },
   });
 
-  async function onSubmit(data) {
+  async function onSubmit(data: EnteredData) {
     const enteredFirstName = data.firstName;
     const enteredAge = data.age;
     const enteredTagFirst = data.tagFirst;
@@ -53,13 +53,6 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user }) => {
       );
       return;
     }
-
-    console.log("name: " + enteredFirstName);
-    console.log("age: " + enteredAge);
-    console.log("1st tag: " + enteredTagFirst);
-    console.log("2nd tag: " + enteredTagSecond);
-    console.log("3rd tag: " + enteredTagThird);
-    console.log(isChecked);
 
     const res = await fetch(`/api/edit/${user.hash}`, {
       method: "PATCH",
