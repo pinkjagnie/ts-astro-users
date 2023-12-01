@@ -41,7 +41,7 @@ export async function POST(req: NextRequest, res: NextResponse<ResponseData>) {
   try {
     await User.create(newUser);
     return NextResponse.json({ message: "User created!" }, { status: 201 });
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
     if (err.errors.firstName) {
       return NextResponse.json(
